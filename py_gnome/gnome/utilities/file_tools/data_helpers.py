@@ -99,7 +99,7 @@ def _gen_topology(filename,
     edge1_coord_names = [['edge1_lon', 'edge1_lat'], ['lon_u', 'lat_u']]
     edge2_coord_names = [['edge2_lon', 'edge2_lat'], ['lon_v', 'lat_v']]
     for n in node_coord_names:
-        if n[0] in gf.variables.keys() and n[1] in gf.variables.keys():
+        if n[0] in list(gf.variables.keys()) and n[1] in list(gf.variables.keys()):
             gt['node_lon'] = n[0]
             gt['node_lat'] = n[1]
             break
@@ -108,26 +108,26 @@ def _gen_topology(filename,
         raise NameError('Default node topology names are not in the grid file')
 
     for n in face_var_names:
-        if n in gf.variables.keys():
+        if n in list(gf.variables.keys()):
             gt['faces'] = n
             break
 
-    if 'faces' in gt.keys():
+    if 'faces' in list(gt.keys()):
         # UGRID
         return gt
     else:
         for n in center_coord_names:
-            if n[0] in gf.variables.keys() and n[1] in gf.variables.keys():
+            if n[0] in list(gf.variables.keys()) and n[1] in list(gf.variables.keys()):
                 gt['center_lon'] = n[0]
                 gt['center_lat'] = n[1]
                 break
         for n in edge1_coord_names:
-            if n[0] in gf.variables.keys() and n[1] in gf.variables.keys():
+            if n[0] in list(gf.variables.keys()) and n[1] in list(gf.variables.keys()):
                 gt['edge1_lon'] = n[0]
                 gt['edge1_lat'] = n[1]
                 break
         for n in edge2_coord_names:
-            if n[0] in gf.variables.keys() and n[1] in gf.variables.keys():
+            if n[0] in list(gf.variables.keys()) and n[1] in list(gf.variables.keys()):
                 gt['edge2_lon'] = n[0]
                 gt['edge2_lat'] = n[1]
                 break
@@ -136,7 +136,7 @@ def _gen_topology(filename,
 
 def _get_dataset(filename):
     df = None
-    if isinstance(filename, basestring):
+    if isinstance(filename, str):
         df = nc4.Dataset(filename)
     else:
         df = nc4.MFDataset(filename)

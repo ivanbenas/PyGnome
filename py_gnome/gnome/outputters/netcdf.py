@@ -56,7 +56,7 @@ var_attributes = {
             },
     'status_codes': {
         'long_name': 'particle status code',
-        'flag_values': " ".join(["%i" % i for i in oil_status._int]),
+        'flag_values': " ".join(["%i" % i for i in list(oil_status._int)]),
         'flag_meanings': " ".join(["%i: %s," % pair for pair in
                                    sorted(zip(oil_status._int,
                                               oil_status._attr))])

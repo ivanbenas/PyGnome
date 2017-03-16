@@ -367,6 +367,11 @@ class Spill(BaseSpill):
                 'units="{0.units}", '
                 ')'.format(self))
 
+    def __hash__(self):
+        """
+        """
+        return hash(self.__repr__())
+
     def __eq__(self, other):
         """
         over ride base == operator defined in Serializable class.

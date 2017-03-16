@@ -4,7 +4,7 @@ from colander import (SchemaNode, deferred, drop,
                       SequenceSchema, TupleSchema, MappingSchema,
                       String, Float, Int)
 
-from extend_colander import NumpyFixedLenSchema
+from .extend_colander import NumpyFixedLenSchema
 
 
 @deferred

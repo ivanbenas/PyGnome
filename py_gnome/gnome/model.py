@@ -594,7 +594,7 @@ class Model(Serializable):
                     # no need to setup references if item is not on
                     continue
 
-                for name, val in attr.iteritems():
+                for name, val in attr.items():
                     if hasattr(item, name) and item.make_default_refs:
                         setattr(item, name, val)
 
@@ -1019,6 +1019,9 @@ class Model(Serializable):
 
     def _callback_add_spill(self, obj_added):
         self.rewind()
+
+    def __hash__(self):
+        return hash(self.spills)
 
     def __eq__(self, other):
         check = super(Model, self).__eq__(other)

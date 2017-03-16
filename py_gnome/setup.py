@@ -62,7 +62,7 @@ class cleanall(clean):
 
         rm_dir = ['pyGnome.egg-info', 'build']
         for dir_ in rm_dir:
-            print "Deleting auto-generated directory: {0}".format(dir_)
+            print("Deleting auto-generated directory: {0}".format(dir_))
             try:
                 shutil.rmtree(dir_)
             except OSError as err:
@@ -101,15 +101,15 @@ class cleanall(clean):
                             self.delete_file(f)
 
     def delete_file(self, filepath):
-        print "Deleting auto-generated file: {0}".format(filepath)
+        print("Deleting auto-generated file: {0}".format(filepath))
         try:
             if os.path.isdir(filepath):
                 shutil.rmtree(filepath)
             else:
                 os.remove(filepath)
         except OSError as err:
-            print("Failed to remove {0}. Error: {1}"
-                  .format(filepath, err))
+            print(("Failed to remove {0}. Error: {1}"
+                  .format(filepath, err)))
             # raise
 
 # setup our environment and architecture
@@ -179,13 +179,13 @@ if sys.platform is "darwin" or "win32":
                 rm_dll = os.path.join(dlls_dst, dll_name)
                 if os.path.exists(rm_dll):
                     os.remove(rm_dll)
-                    print "deleted: " + rm_dll
+                    print("deleted: " + rm_dll)
             else:
                 # Note: weird permissions/file locking thing on Windows --
                 #       couldn't delete or overwrite the dll...
                 #       so only copy if it's not there already
                 if not os.path.isfile(os.path.join(dlls_dst, dll_name)):
-                    print "copy: " + dll + " to: " + dlls_dst
+                    print("copy: " + dll + " to: " + dlls_dst)
                     shutil.copy(dll, dlls_dst)
         netcdf_names = ('netcdf',)
     else:
@@ -350,7 +350,7 @@ elif sys.platform == "win32":
                                      'cy_basic_types.lib')]
     libdirs = []
 
-elif sys.platform == "linux2":
+elif sys.platform in  ["linux", "linux2"]:
     # for some reason I have to create build/temp.linux-i686-2.7
     # else the compile fails saying temp.linux-i686-2.7 is not found
     # required for develop or install mode
@@ -468,11 +468,13 @@ def get_version():
     raise ValueError("can't find version string in __init__")
 
 
+print(find_packages())
+
 setup(name='pyGnome',
       version=get_version(),
       ext_modules=extensions,
       packages=find_packages(),
-      package_dir={'gnome': 'gnome'},
+      #package_dir={'gnome': 'gnome'},
       package_data={'gnome': ['data/yeardata/*',
                               'outputters/sample.b64']},
       requires=['numpy'],   # want other packages here?

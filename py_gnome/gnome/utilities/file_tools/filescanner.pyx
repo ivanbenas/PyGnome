@@ -65,7 +65,7 @@ def scan(infile, num_to_read=None):
 
     ## does all this checking cost too much?
     ## and CheckExact is there later anyway...
-    if  ( (type(infile) is not file) or
+    if  (
           infile.closed or
           not ('r' in infile.mode or 'a' in infile.mode)
         ):

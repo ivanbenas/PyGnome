@@ -62,7 +62,7 @@ class Animation(Renderer):
     def start_animation(self, filename):
         self.animation = py_gd.Animation(filename, self.delay)
         l = 0 if self.repeat else -1
-        print 'Starting animation'
+        print('Starting animation')
         self.animation.begin_anim(self.back_image, l)
 
     def prepare_for_model_run(self, *args, **kwargs):
@@ -132,7 +132,7 @@ class Animation(Renderer):
             self.copy_back_to_fore()
 
         # draw data for self.draw_ontop second so it draws on top
-        scp = self.cache.load_timestep(step_num).items()
+        scp = list(self.cache.load_timestep(step_num).items())
         if len(scp) == 1:
             self.draw_elements(scp[0])
         else:
@@ -148,5 +148,5 @@ class Animation(Renderer):
         self.save_foreground_frame(self.animation, self.delay)
 
     def write_output_post_run(self, **kwargs):
-        print 'closing animation'
+        print('closing animation')
         self.animation.close_anim()

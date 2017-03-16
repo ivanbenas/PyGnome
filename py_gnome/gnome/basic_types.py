@@ -14,7 +14,7 @@ import sys
 import numpy as np
 
 # pull everything from the cython code
-from cy_gnome.cy_basic_types import *
+from .cy_gnome.cy_basic_types import *
 
 # Here we customize what a numpy 'long' type is....
 # We do this because numpy does different things with a long
@@ -31,7 +31,7 @@ from cy_gnome.cy_basic_types import *
 if sys.platform == 'win32':
     np_long = np.int
 elif sys.platform in ('darwin', 'linux2', 'linux'):
-    if sys.maxint > 2147483647:
+    if True: # sys.maxint > 2147483647:
         np_long = np.long
     else:
         np_long = np.int

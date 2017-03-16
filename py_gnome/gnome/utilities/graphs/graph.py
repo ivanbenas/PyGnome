@@ -135,7 +135,7 @@ class Graph(Serializable):
 
     def _plot_points(self):
         x = self.points[0]
-        for p, i in zip(self.points, range(len(self.points)))[1:]:
+        for p, i in zip(self.points, list(range(len(self.points))))[1:]:
             static_args = [x, p]
 
             if self.formats and len(self.formats) > i:
@@ -168,7 +168,7 @@ class Graph(Serializable):
 
 
 if __name__ == '__main__':
-    print 'Starting some simple tests for our graph...'
+    print('Starting some simple tests for our graph...')
     plt.switch_backend('macosx')
 
     dg = Graph(points=((1, 2, 3),

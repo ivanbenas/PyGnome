@@ -130,7 +130,7 @@ class ArrayType(AddLogger):
         if len(self.__dict__) != len(other.__dict__):
             return False
 
-        for (key, val) in self.__dict__.iteritems():
+        for (key, val) in self.__dict__.items():
             if key not in other.__dict__:
                 return False
             elif key == 'initial_value':
@@ -299,7 +299,7 @@ _default_values = {'positions': ((3,), world_point_type, 'positions',
 # dynamically create the ArrayType objects in this module from _default_values
 # dict. Reason for this logic and subsequent functions is so we only have to
 # update/modify the _default_values dict above
-for key, val in _default_values.iteritems():
+for key, val in _default_values.items():
     if len(val) > 4:
         vars()[key] = val[4](shape=_default_values[key][0],
                              dtype=_default_values[key][1],

@@ -292,9 +292,9 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
             u_data = currents.variables[0].data
             v_data = currents.variables[1].data
             source_idx = currents.grid.locate_faces(np.array(self.start_position)[0:2], 'node')
-            print source_idx
+            print(source_idx)
             time_idx = currents.time.index_of(current_time, False)
-            print time_idx
+            print(time_idx)
             u_conditions = u_data[time_idx, :, source_idx[0], source_idx[1]]
             max_depth_ind = np.where(u_conditions.mask)[0].min()
             u_conditions = u_conditions[0:max_depth_ind]
@@ -305,7 +305,7 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
 #                print uv[d]
             self.tamoc_parameters['ua'] = u_conditions
             self.tamoc_parameters['va'] = v_conditions
-            print 'getdepths'
+            print('getdepths')
 #            depth_var = u_data._grp[currents.variables[0].data.dimensions[1]]
             try:
                 self.tamoc_parameters['depths'] = u_data._grp['depth_levels'][0:max_depth_ind]
@@ -397,12 +397,12 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
 
         # Get the release rates of gas and liquid phase
         md_gas, md_oil = self.release_flux(oil, mass_frac, profile, T0, z0, Q)
-        print 'md_gas, md_oil', np.sum(md_gas), np.sum(md_oil)
+        print('md_gas, md_oil', np.sum(md_gas), np.sum(md_oil))
         # Get the particle list for this composition
         particles = self.get_particles(composition, data, md_gas, md_oil, profile, d50_gas, d50_oil,
                                   nbins, T0, z0, dispersant, sigma_fac, oil, mass_frac, hydrate, inert_drop)
-        print len(particles)
-        print particles
+        print(len(particles))
+        print(particles)
 
         # Run the simulation
         jlm = bpm.Model(profile)
@@ -431,15 +431,15 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
             Eq_parti = dbm.FluidMixture(composition=jlm.particles[i].composition[:],
                                         user_data=data)
             # Get the particle equilibrium at the plume termination conditions
-            print 'Insitu'
+            print('Insitu')
             flag_phase_insitu = self.get_phase(jlm.profile, Eq_parti, Mp[i, :]/np.sum(Mp[i, :]), Tp, jlm.particles[i].z)
             # Get the particle equilibrium at the 15 C and 1 atm
-            print 'Surface'
+            print('Surface')
             flag_phase_surface = self.get_phase(jlm.profile, Eq_parti, Mp[i, :]/np.sum(Mp[i, :]), 273.15 + 15. , 0.)
             gnome_particles.append(TamocDroplet(mass_flux, radius, density, position))
 
         for p in gnome_particles:
-            print p
+            print(p)
         m_tot_diss = 0.
         # Calculate the dissolved particle flux
         for j in range(len(jlm.chem_names)):
@@ -452,11 +452,11 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
 #            print chem_name
             gnome_diss_components.append(TamocDissMasses(diss_mass_flux, position,chem_name))
 
-        print 'total dissolved mass flux at plume termination' ,m_tot_diss
-        print 'total non ddissolved mass flux at plume termination', m_tot_nondiss
-        print 'total mass flux tracked at plume termination',m_tot_diss+m_tot_nondiss
-        print 'total mass flux released at the orifice',np.sum(md_gas)+ np.sum(md_oil)
-        print 'perccentsge_error', (np.sum(md_gas)+ np.sum(md_oil)-m_tot_diss-m_tot_nondiss)/(np.sum(md_gas)+ np.sum(md_oil))*100.
+        print('total dissolved mass flux at plume termination' ,m_tot_diss)
+        print('total non ddissolved mass flux at plume termination', m_tot_nondiss)
+        print('total mass flux tracked at plume termination',m_tot_diss+m_tot_nondiss)
+        print('total mass flux released at the orifice',np.sum(md_gas)+ np.sum(md_oil))
+        print('perccentsge_error', (np.sum(md_gas)+ np.sum(md_oil)-m_tot_diss-m_tot_nondiss)/(np.sum(md_gas)+ np.sum(md_oil))*100.)
 
         return gnome_particles, gnome_diss_components
     def __repr__(self):
@@ -744,9 +744,9 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
 
         # Add the crossflow velocity
 
-        print '******************'
-        print depths
-        print '******************'
+        print('******************')
+        print(depths)
+        print('******************')
 
         u_crossflow = np.zeros((len(depths), 2))
         u_crossflow[:, 0] = depths
@@ -797,7 +797,7 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
 
                 # Get a line of data
                 entries = line.strip().split(',')
-                print entries
+                print(entries)
 
                 # Excel sometimes addes empty columns...remove them.
                 if len(entries[len(entries) - 1]) is 0:
@@ -809,7 +809,7 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
 
                 else:
                     composition.append(entries[0])
-                    print type(entries[1])
+                    print(type(entries[1]))
                     mass_frac.append(np.float64(entries[1]))
 
         # Return the release composition data
@@ -873,8 +873,8 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
         # Get the mole fractions of the released fluids
         molf_gas = bubl.mol_frac(md_gas0)
         molf_oil = drop.mol_frac(md_oil0)
-        print molf_gas
-        print molf_oil
+        print(molf_gas)
+        print(molf_oil)
 
         # Use the Rosin-Rammler distribution to get the mass flux in each
         # size class
@@ -986,22 +986,22 @@ class TamocSpill(gnome.spill.spill.BaseSpill):
         """
         # Get the pressure at particle location
         P = profile.get_values(z, ['pressure'])
-        print 'Pressure', P
+        print('Pressure', P)
 
         # Get the equilibrium composition
         m0, xi, K = particle.equilibrium(Mp, T, P)
 
-        print 'liquid fraction' , np.sum(m0[1,:])
-        print 'gas fraction', np.sum(m0[0,:])
+        print('liquid fraction' , np.sum(m0[1,:]))
+        print('gas fraction', np.sum(m0[0,:]))
 
         if np.sum(m0[1,:]) == 1.0:
-            print ' Particle is complete liquid'
+            print(' Particle is complete liquid')
             flag_phase = 'Liquid'
         elif np.sum(m0[0,:]) == 1.0:
-            print 'particle is complete gas'
+            print('particle is complete gas')
             flag_phase = 'Gas'
         else:
-            print 'particle is a mixture of gas and liquid'
+            print('particle is a mixture of gas and liquid')
             flag_phase = 'Mixture'
 
 
