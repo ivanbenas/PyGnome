@@ -10,7 +10,7 @@ import json
 
 import unit_conversion as uc
 
-from gnomeobject import GnomeId, AddLogger
+from gnome.gnomeobject import GnomeId, AddLogger
 # from gnomeobject import init_obj_log
 
 # using a PEP 404 compliant version name
@@ -73,9 +73,9 @@ def initialize_console_log(level='debug'):
 
 def _valid_units(unit_name):
     'convenience function to get all valid units accepted by unit_conversion'
-    _valid_units = uc.GetUnitNames(unit_name)
+    _valid_units = list(uc.GetUnitNames(unit_name))
     _valid_units.extend(chain(*[val[1] for val in
-                                uc.ConvertDataUnits[unit_name].values()]))
+                                list(uc.ConvertDataUnits[unit_name].values())]))
     return tuple(_valid_units)
 
 # we have a sort of chicken-egg situation here.  The above functions need

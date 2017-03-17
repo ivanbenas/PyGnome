@@ -129,7 +129,7 @@ class TrajectoryGeoJsonOutput(Outputter, Serializable):
         # feature per step rather than (n) features per step.features = []
         c_features = []
         uc_features = []
-        for sc in self.cache.load_timestep(step_num).items():
+        for sc in list(self.cache.load_timestep(step_num).items()):
             position = self._dataarray_p_types(sc['positions'])
             status = self._dataarray_p_types(sc['status_codes'])
             mass = self._dataarray_p_types(sc['mass'])
@@ -189,7 +189,7 @@ class TrajectoryGeoJsonOutput(Outputter, Serializable):
         '''
         p_type = type(np.asscalar(data_array.dtype.type(0)))
 
-        if p_type is long:
+        if p_type is int:
             'geojson expects int - it fails for a long'
             p_type = int
 
@@ -205,11 +205,11 @@ class TrajectoryGeoJsonOutput(Outputter, Serializable):
     #     self.clean_output_files()
 
     def clean_output_files(self):
-        print "in clean_output_files"
+        print("in clean_output_files")
         if self.output_dir:
             files = glob(os.path.join(self.output_dir, 'geojson_*.geojson'))
-            print "files are:"
-            print files
+            print("files are:")
+            print(files)
             for f in files:
                 os.remove(f)
 
@@ -284,7 +284,7 @@ class IceGeoJsonOutput(Outputter):
         if self.on is False or not self._write_step:
             return None
 
-        for sc in self.cache.load_timestep(step_num).items():
+        for sc in list(self.cache.load_timestep(step_num).items()):
             pass
 
         model_time = date_to_sec(sc.current_time_stamp)

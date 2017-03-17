@@ -82,7 +82,7 @@ class RandomMover(CyMover, Serializable):
 
 class IceAwareRandomMover(RandomMover):
     def __init__(self, *args, **kwargs):
-        if 'ice_conc_var' in kwargs.keys():
+        if 'ice_conc_var' in list(kwargs.keys()):
             self.ice_conc_var = kwargs.pop('ice_conc_var')
         super(IceAwareRandomMover, self).__init__(**kwargs)
 

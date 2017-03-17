@@ -295,7 +295,7 @@ class Renderer(Outputter, MapCanvas):
     def start_animation(self, filename):
         self.animation = py_gd.Animation(filename, self.delay)
         l = 0 if self.repeat else -1
-        print 'Starting animation'
+        print('Starting animation')
         self.animation.begin_anim(self.back_image, l)
 
     def prepare_for_model_run(self, *args, **kwargs):
@@ -610,7 +610,7 @@ class Renderer(Outputter, MapCanvas):
             self.copy_back_to_fore()
 
         # draw prop for self.draw_ontop second so it draws on top
-        scp = self.cache.load_timestep(step_num).items()
+        scp = list(self.cache.load_timestep(step_num).items())
         if len(scp) == 1:
             self.draw_elements(scp[0])
         else:
@@ -647,7 +647,7 @@ class Renderer(Outputter, MapCanvas):
         """
 
         # draw prop for self.draw_ontop second so it draws on top
-        scp = self.cache.load_timestep(step_num).items()
+        scp = list(self.cache.load_timestep(step_num).items())
         if len(scp) == 1:
             self.draw_elements(scp[0])
         else:
@@ -816,7 +816,7 @@ class GridPropVisLayer:
 
         img.draw_dots(start, diameter=self.size, color=self.color)
         line = np.array([[0.,0.],[0.,0.]])
-        for i in xrange(0,len(start)):
+        for i in range(0,len(start)):
             line[0] = start[i]
             line[1] = end[i]
             img.draw_polyline(line,

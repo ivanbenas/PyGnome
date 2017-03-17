@@ -18,10 +18,10 @@ Features:
 import copy
 import os
 import math
-from osgeo import ogr
+#from osgeo import ogr
 
 import py_gd
-from osgeo import ogr
+#from osgeo import ogr
 # import pyugrid
 
 import numpy as np
@@ -165,7 +165,7 @@ class GnomeMap(Serializable):
     def _attr_array_to_dict(self, np_array):
         '''convert np_array to list of tuples, used for map_bounds,
         spillable_area'''
-        return map(tuple, np_array.tolist())
+        return list(map(tuple, np_array.tolist()))
 
     def _attr_from_list_to_array(self, l_):
         '''
@@ -610,16 +610,16 @@ class ParamMap(GnomeMap):
             spill_container['status_codes'][r_idx] = oil_status.in_water
 
     def update_from_dict(self, data):
-        if ('center' in data.keys() or
-                'distance' in data.keys() or
-                'bearing' in data.keys() or
-                'units' in data.keys()):
+        if ('center' in list(data.keys()) or
+                'distance' in list(data.keys()) or
+                'bearing' in list(data.keys()) or
+                'units' in list(data.keys())):
             self.build(
-                data['center'] if 'center' in data.keys() else self.center,
+                data['center'] if 'center' in list(data.keys()) else self.center,
                 data[
-                    'distance'] if 'distance' in data.keys() else self.distance,
-                data['bearing'] if 'bearing' in data.keys() else self.bearing,
-                data['units'] if 'units' in data.keys() else self.units)
+                    'distance'] if 'distance' in list(data.keys()) else self.distance,
+                data['bearing'] if 'bearing' in list(data.keys()) else self.bearing,
+                data['units'] if 'units' in list(data.keys()) else self.units)
         else:
             # for the case when instantiating a param map using new_from_dict,
             # since new_from_dict will call update_from_dict
@@ -775,7 +775,7 @@ class RasterMap(GnomeMap):
         np.putmask(bitmap, self.basebitmap > 0, 2)
 
         im = py_gd.from_array(bitmap)
-        print im.get_color_index('white')
+        print(im.get_color_index('white'))
 
         im.save(filename, 'bmp')
 
@@ -832,7 +832,7 @@ class RasterMap(GnomeMap):
 
         returns: a (N,) array of bools - true for particles that are on land
         """
-        mask = map(point_in_poly, [self.map_bounds] * len(coords), coords)
+        mask = list(map(point_in_poly, [self.map_bounds] * len(coords), coords))
         racpy = np.copy(coords)[mask]
         mskgph = self.basebitmap[racpy[:, 0], racpy[:, 1]]
 
@@ -1186,7 +1186,7 @@ class MapFromBNA(RasterMap):
                     elif geo_type == 'LINESTRING':
                         line_strings.append(geom.GetPoints())
                     else:
-                        print 'unknown type: ', geo_type
+                        print('unknown type: ', geo_type)
 
         features = []
         if polys:

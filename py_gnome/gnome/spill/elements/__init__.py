@@ -1,6 +1,6 @@
-from element_type import (ElementType,
+from .element_type import (ElementType,
                           floating, plume)
-from initializers import (InitWindages,
+from .initializers import (InitWindages,
                           InitMassFromPlume,
                           InitRiseVelFromDist,
                           InitRiseVelFromDropletSizeFromDist,

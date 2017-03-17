@@ -6,7 +6,10 @@ the Wind object defines the Wind conditions for the spill
 import datetime
 import os
 import copy
-import StringIO
+try:
+    import StringIO
+except:
+    from io import StringIO
 import zipfile
 
 import numpy as np

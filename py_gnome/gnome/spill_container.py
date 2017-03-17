@@ -162,7 +162,7 @@ class FateDataView(AddLogger):
             self.logger.debug(self._pid + "found LEs with 'mass' equal to 0. "
                               "reset_view")
 
-        for key, val in d_to_sync.iteritems():
+        for key, val in d_to_sync.items():
             sc[key][w_mask] = val
 
         if reset_view:
@@ -282,6 +282,9 @@ class SpillContainerData(object):
 
         self._data_arrays[data_name] = array
 
+    def __hash__(self):
+        return hash(self.uncertain)
+
     def __eq__(self, other):
         'Compare equality of two SpillContanerData objects'
         if type(self) != type(other):
@@ -292,7 +295,7 @@ class SpillContainerData(object):
 
         # check key/val that are not dicts
         val_is_dict = []
-        for key, val in self.__dict__.iteritems():
+        for key, val in self.__dict__.items():
             'compare dict not including _data_arrays'
             if isinstance(val, dict):
                 val_is_dict.append(key)
@@ -311,7 +314,7 @@ class SpillContainerData(object):
                 # dicts should contain the same keys
                 return False
 
-            for key, val in self.__dict__[item].iteritems():
+            for key, val in self.__dict__[item].items():
                 other_val = other.__dict__[item][key]
                 if isinstance(val, np.ndarray):
                     try:
@@ -384,6 +387,7 @@ class SpillContainer(AddLogger, SpillContainerData):
         self.spills.register_callback(self._spills_changed,
                                       ('add', 'replace', 'remove'))
         self.rewind()
+
 
     def __setitem__(self, data_name, array):
         """
@@ -612,7 +616,7 @@ class SpillContainer(AddLogger, SpillContainerData):
         :param int num_released: number of particles released
 
         """
-        for name, atype in self._array_types.iteritems():
+        for name, atype in self._array_types.items():
             # initialize all arrays even if 0 length
             if atype.shape is None:
                 # assume array type is for weather data, provide it the shape
@@ -853,7 +857,7 @@ class SpillContainer(AddLogger, SpillContainerData):
         and prepare_for_model_run to define all data arrays.
         At this time the arrays are empty.
         """
-        for name, atype in self._array_types.iteritems():
+        for name, atype in self._array_types.items():
             # Initialize data_arrays with 0 elements
             # fixme: is every array type with None shape neccesarily oil components??
             #        but it is more than just mass_components
@@ -956,7 +960,7 @@ class SpillContainer(AddLogger, SpillContainerData):
             self.logger.warning(msg)
             raise
 
-        for name, at in self.array_types.iteritems():
+        for name, at in self.array_types.items():
             data = self[name]
             split_elems = at.split_element(num, self[name][idx], l_frac)
             data = np.insert(data, idx, split_elems[:-1], 0)
@@ -1073,6 +1077,9 @@ class SpillContainerPairData(object):
             return sc.mass_balance
 
         return sc[prop_name]
+
+    def __hash__(self):
+        return hash(self.items())
 
     def __eq__(self, other):
         'Compare equality of two SpillContainerPairData objects'

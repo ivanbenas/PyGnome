@@ -1,4 +1,4 @@
-from monahan import Monahan
+from .monahan import Monahan
 
 
 class LehrSimecek(object):

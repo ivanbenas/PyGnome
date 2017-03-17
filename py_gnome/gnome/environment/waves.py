@@ -25,7 +25,7 @@ from gnome.exceptions import ReferencedObjectNotSet
 from .environment import Environment
 from .environment import WaterSchema
 
-from wind import WindSchema
+from .wind import WindSchema
 
 g = constants.gravity  # the gravitational constant.
 

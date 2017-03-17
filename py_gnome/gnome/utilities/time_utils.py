@@ -104,7 +104,7 @@ def date_to_sec(date_times):
         # but IIUC, it is only used for the DST transition - when there can be two times that
         # cross the border setting this to 0 seems to force what we want.
         timetuple[-1] = 0
-        t_list.append(time.mktime(timetuple))
+        t_list.append(time.mktime(tuple(timetuple)))
 
     return np.array(t_list, dtype=np.uint32) if not scalar else t_list[0]
 
@@ -242,13 +242,13 @@ if __name__ == '__main__':
                            59,
                            1234)
 
-    print 'a datetime:'
-    print dt
-    print 'rounded to 1 hour:'
-    print round_time(dt, roundTo=60 * 60)
+    print('a datetime:')
+    print(dt)
+    print('rounded to 1 hour:')
+    print(round_time(dt, roundTo=60 * 60))
 
-    print 'rounded to 30 minutes:'
-    print round_time(dt, roundTo=30 * 60)
+    print('rounded to 30 minutes:')
+    print(round_time(dt, roundTo=30 * 60))
 
-    print 'rounded to one day:'
-    print round_time(dt, roundTo=3600 * 60 * 60)
+    print('rounded to one day:')
+    print(round_time(dt, roundTo=3600 * 60 * 60))

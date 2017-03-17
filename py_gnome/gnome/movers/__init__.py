@@ -7,9 +7,9 @@ __init__.py for the gnome package
 
 """
 
-from movers import Mover, Process, ProcessSchema, CyMover
-from simple_mover import SimpleMover, SimpleMoverSchema
-from wind_movers import (WindMover,
+from .movers import Mover, Process, ProcessSchema, CyMover
+from .simple_mover import SimpleMover, SimpleMoverSchema
+from .wind_movers import (WindMover,
                          WindMoverSchema,
                          constant_wind_mover,
                          wind_mover_from_file,
@@ -18,14 +18,14 @@ from wind_movers import (WindMover,
                          IceWindMoverSchema,
                          IceWindMover,
                          )
-from ship_drift_mover import (ShipDriftMoverSchema,
+from .ship_drift_mover import (ShipDriftMoverSchema,
                               ShipDriftMover)
-from random_movers import (RandomMoverSchema,
+from .random_movers import (RandomMoverSchema,
                            RandomMover,
                            IceAwareRandomMover,
                            RandomVerticalMoverSchema,
                            RandomVerticalMover)
-from current_movers import (CatsMoverSchema,
+from .current_movers import (CatsMoverSchema,
                             CatsMover,
                             ComponentMoverSchema,
                             ComponentMover,
@@ -35,13 +35,13 @@ from current_movers import (CatsMoverSchema,
                             IceMover,
                             CurrentCycleMoverSchema,
                             CurrentCycleMover)
-from vertical_movers import RiseVelocityMoverSchema, RiseVelocityMover, TamocRiseVelocityMover
+from .vertical_movers import RiseVelocityMoverSchema, RiseVelocityMover, TamocRiseVelocityMover
 
-from ugrid_movers import UGridCurrentMover
+from .ugrid_movers import UGridCurrentMover
 # from py_ice_mover import PyIceMover
 
-from py_wind_movers import PyWindMover
-from py_current_movers import PyGridCurrentMover
+from .py_wind_movers import PyWindMover
+from .py_current_movers import PyGridCurrentMover
 
 # no reason for __all__ if you are going to put everything in it.
 # in fact, no reason for __all__unless you want to support "import *", which we don't.

@@ -6,7 +6,7 @@ import time
 import traceback
 import logging
 
-from cPickle import loads, dumps
+from pickle import loads, dumps
 import uuid
 
 import multiprocessing as mp
@@ -48,7 +48,7 @@ class ModelConsumer(mp.Process):
         self.ipc_folder = ipc_folder
 
     def run(self):
-        print '{0}: starting...'.format(self.name)
+        print('{0}: starting...'.format(self.name))
 
         # remove any root handlers else we get IOErrors for shared file
         # handlers
@@ -77,7 +77,7 @@ class ModelConsumer(mp.Process):
 
         sock.close()
         context.destroy(linger=0)
-        print '{0}: exiting...'.format(self.name)
+        print('{0}: exiting...'.format(self.name))
 
     def cleanup_inherited_files(self):
         proc = psutil.Process(os.getpid())
@@ -279,7 +279,7 @@ class ModelBroadcaster(GnomeId):
 
         for c in self.consumers:
             c.join()
-        print 'joined all consumers!!!'
+        print('joined all consumers!!!')
 
         self.context.destroy()
 

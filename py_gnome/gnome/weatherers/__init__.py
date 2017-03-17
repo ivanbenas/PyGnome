@@ -1,12 +1,12 @@
-from core import Weatherer, HalfLifeWeatherer
-from cleanup import Skimmer, Burn, ChemicalDispersion
-from manual_beaching import Beaching
-from evaporation import Evaporation
-from natural_dispersion import NaturalDispersion
-from dissolution import Dissolution
-from emulsification import Emulsification
-from weathering_data import WeatheringData
-from spreading import Langmuir, FayGravityViscous, ConstantArea
+from .core import Weatherer, HalfLifeWeatherer
+from .cleanup import Skimmer, Burn, ChemicalDispersion
+from .manual_beaching import Beaching
+from .evaporation import Evaporation
+from .natural_dispersion import NaturalDispersion
+from .dissolution import Dissolution
+from .emulsification import Emulsification
+from .weathering_data import WeatheringData
+from .spreading import Langmuir, FayGravityViscous, ConstantArea
 
 '''
     Weatherers are to be ordered as follows:

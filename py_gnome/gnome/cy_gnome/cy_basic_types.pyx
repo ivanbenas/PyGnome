@@ -25,7 +25,7 @@ def enum(**enums):
     will not build!
     """
     # append keys and int to dict
-    enums.update({'_attr': enums.keys(), '_int': enums.values()})
+    enums.update({'_attr': enums.keys(), '_int': list(enums.values())})
 
     return type('Enum', (), enums)
 
